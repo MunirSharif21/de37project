@@ -26,7 +26,7 @@ pd.set_option('display.width', 400)
 pd.set_option('max_colwidth', 800)
 
 test1 = s3_client.get_object(Bucket=bucket_name, Key="Academy/Business_20_2019-02-11.csv")
-test2 = s3_client.get_object(Bucket=bucket_name, Key="Talent/13247.json")
+test2 = s3_client.get_object(Bucket=bucket_name, Key="Talent/13248.json")
 test3 = s3_client.get_object(Bucket=bucket_name, Key="Talent/Sparta Day 1 August 2019.txt")
 test4 = s3_client.get_object(Bucket=bucket_name, Key="Talent/May2019Applicants.csv")
 
@@ -39,7 +39,7 @@ y = text_change(df3[:10])
 
 pd_y = pd.DataFrame(y)
 pd_y.to_csv(sep=",", index=False)
-pd_y.columns = ["Name", "Psychometrics", "Presentation"]
+pd_y.columns = ["Name", "Psychometrics", "Presentation", "Date", "Location"]
 
 print("This is the TALENT/Sparta Day data")
 print(df3[:10])
@@ -47,7 +47,7 @@ print("\nAFTER CLEANING")
 print(pd_y)
 
 
-print("This is the TALENT/123456 data")
+print("This is the TALENT/12345 data")
 print(df2)
 print("\nAFTER CLEANING")
 df2_c = text_change_academy(df2)

@@ -1,8 +1,21 @@
 import pandas as pd
+from datetime import datetime
 
 
 def text_change(df0):
     temp_list = []
+    d = df0.loc[0]
+    location = str(df0.loc[1])[2:]
+    location = location.strip()
+    location = location.replace("\nName: 1, dtype: object", "")
+    d = d.replace("\nName: 0,", "")
+    dd = str(d).strip()[3:]
+    dd = dd.replace("Name: 0, dtype: object", "")
+    dd = dd.strip()
+    date = datetime.strptime(dd, "%A %d %B %Y")
+    date = date.strftime('%Y/%m/%d')
+    # print(dd)
+    # print("HELLO\n\n\n")
     for i in range(2, df0.size):
         # print(i, df0.loc)
         x = str(df0.loc[i]).replace("-", ",")
@@ -14,7 +27,7 @@ def text_change(df0):
         y1 = x2[2].strip()
         y2 = x2[4].strip()
 
-        temp_list.append([y0, y1, y2])
+        temp_list.append([y0, y1, y2, date, location])
     return temp_list
 
 
