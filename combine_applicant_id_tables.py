@@ -5,6 +5,10 @@ from main_create_address_table import *
 # df4 = get_clean_DF4(k="Talent/May2019Applicants.csv")
 # k = "Talent/May2019Applicants.csv"
 
+# THIS FILE CREATES A READABLE DICTIONARY FOR IDs
+
+
+
 
 pd.set_option('display.max_columns', 15)
 pd.set_option('display.width', 400)
@@ -38,9 +42,15 @@ def fuse_lists_together():
 
 df = fuse_lists_together()
 
+# print(name_to_id)
+
 df, df_a = extract_address_from_applicants(df)
 
-print(df)
+df = dataframe_numbers_cleaning(df)
+# print(df["phone_number"])
+
+
+# print(df)
 df.to_excel("applicants_table.xlsx")
 df_a.to_excel("address_table.xlsx")
 

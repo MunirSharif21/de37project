@@ -113,7 +113,7 @@ def clean_phone_numbers(nums):
 
 
 def dataframe_numbers_cleaning(df):
-    for i in range(1, df["phone_number"].size):
+    for i in range(df["phone_number"].size):
         try:
             df.iloc[i - 1, df.columns.get_loc('phone_number')] = clean_single_phone_num(df.iloc[i - 1, df.columns.get_loc('phone_number')])
         except IndexError:
