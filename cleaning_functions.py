@@ -4,7 +4,10 @@ import pandas as pd
 from datetime import datetime
 from get_all_names import *
 from get_file_with_key import *
+import boto3
 
+bucket_name = "data-eng-37-final-project"
+s3_client = boto3.client("s3")
 
 
 def text_change(df0):
@@ -56,14 +59,14 @@ def text_change_academy(df0):
             continue
         if type(df0[i]) != dict and type(df0[i]) != list:
             x.append([i, df0[i]])
-        elif type(df0[i]) == list:
-            if lim == 0:
-                x.append(["strengths", "Table_Bada_ID"])
-                ret2 = make_another_table(df0[i], "Strengths")
-                lim += 1
-            else:
-                x.append(["weaknesses", "Table_Chhota_ID"])
-                ret3 = make_another_table(df0[i], "Weaknesses")
+        # elif type(df0[i]) == list:
+        #     if lim == 0:
+        #         x.append(["strengths", "Table_Bada_ID"])
+        #         ret2 = make_another_table(df0[i], "Strengths")
+        #         lim += 1
+        #     else:
+        #         x.append(["weaknesses", "Table_Chhota_ID"])
+        #         ret3 = make_another_table(df0[i], "Weaknesses")
         else:
             if lim1 == 0:
                 lim1 += 1
@@ -140,8 +143,39 @@ def split_name(df):
 
 
 def remove_excess_index(df, index_name):
-    df = df.drop(columns = index_name)
+    df = df.drop(columns=index_name)
     return df
+
+
+def get_clean_DF4(k="Talent/May2019Applicants.csv"):
+
+    test4 = s3_client.get_object(Bucket=bucket_name, Key=k)
+    df4 = pd.read_csv(test4["Body"])
+    df4 = dataframe_numbers_cleaning(df4)
+    df4 = split_name(df4)
+    df4 = remove_excess_index(df4, "id")
+    return df4
+
+
+def get_clean_DF2():
+    test2 = s3_client.get_object(Bucket=bucket_name, Key="Talent/13247.json")
+    df2 = json.loads(test2["Body"].read())
+    df2_c, r2, r3, r4 = text_change_academy(df2)
+    df2_c = set_first_row_as_column_names(df2_c)
+    df2_c = df2_c.to_frame().T
+    return df2_c
+
+
+def get_clean_DF3():
+    test3 = s3_client.get_object(Bucket=bucket_name, Key="Talent/Sparta Day 1 August 2019.txt")
+    df3 = pd.read_csv(test3["Body"], sep="\t", header=None)
+    y = text_change(df3[:10])
+
+    pd_y = pd.DataFrame(y)
+    pd_y.to_csv(sep=",", index=False)
+    pd_y.columns = ["Name", "Psychometrics", "Presentation", "Date", "Location"]
+
+    return pd_y
 
 
 # def combine_rows(key_list):
