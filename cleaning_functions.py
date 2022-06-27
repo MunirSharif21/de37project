@@ -121,12 +121,12 @@ def dataframe_numbers_cleaning(df):
     return df
 
 
-def split_name(df):
+def split_name(df, col_name = "name"):
     first_names = []
     last_names = []
-    for i in range(0, df["phone_number"].size):
+    for i in range(0, df[col_name].size):
         try:
-            full_name = df.iloc[i, df.columns.get_loc('name')]
+            full_name = df.iloc[i, df.columns.get_loc(col_name)]
             # print(full_name)
             name_split = full_name.split()
             # print(name_split)
@@ -138,7 +138,7 @@ def split_name(df):
     df.insert(2, "Last Name", last_names)
     # print(first_names)
     # print(last_names)
-    df = df.drop(columns="name")
+    df = df.drop(columns=col_name)
     return df
 
 

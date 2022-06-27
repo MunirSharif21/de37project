@@ -16,9 +16,10 @@ df2 = get_clean_DF2()
 # print(df4)
 
 
-def extract_remove_columns(df, cols, address=False):
+def extract_remove_columns(df, cols, address=False, deletion=True):
     new_df = df[cols]
-    df = df.drop(columns=cols)
+    if deletion:
+        df = df.drop(columns=cols)
     if address:
         # cols.append("applicant_id")
         new_df = pd.concat([df["applicant_id"], new_df], axis=1)
