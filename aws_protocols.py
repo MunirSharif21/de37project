@@ -1,8 +1,8 @@
 import boto3
 import botocore
-from botocore.exceptions import ClientError
 import json
 import pandas as pd
+from botocore.exceptions import ClientError
 
 """
 This file has all the functions relating to the retrieval of

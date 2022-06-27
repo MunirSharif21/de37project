@@ -1,6 +1,5 @@
-from datetime import datetime
-
 import pandas as pd
+from datetime import datetime
 
 """
 This file contains common functions for cleaning various aspects of the dataframes
@@ -21,6 +20,7 @@ def apply_to_each_row_in_column(df, col_name, function, not_dict=True):
         if pd.isnull(old_value):
             new_value = pd.NA
         else:
+            # if a function is used, use round brackets, if dict, use square
             if not_dict:
                 new_value = function(old_value)
             else:

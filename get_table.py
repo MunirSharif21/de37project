@@ -22,9 +22,13 @@ def applicants_recruiter(df_app0):
     return df_app0, df_rec0
 
 
+def get_tables():
+    df_app, df_add = applicants_address()
+    df_app, df_rec = applicants_recruiter(df_app)
+    print(df_app, df_rec, sep="\n")
+    return df_app, df_add, df_rec
+
 # MAIN
 
-df_app, df_add = applicants_address()
-df_app, df_rec = applicants_recruiter(df_app)
 
-print(df_app, df_rec, sep="\n")
+
