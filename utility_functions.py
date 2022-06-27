@@ -1,56 +1,42 @@
-from cleaning_functions import *
 import re
-import pandas as pd
 from datetime import datetime
-# from extract_columns_into_new_table import *
-
-##########
-pd.set_option('display.max_columns', 15)
-pd.set_option('display.width', 400)
-pd.set_option('max_colwidth', 800)
-##########
-
-df4 = get_clean_DF4(k="Talent/May2019Applicants.csv")
-k = "Talent/May2019Applicants.csv"
-# df2 = get_clean_DF2()
 
 
-# print(df4)
+"""
+This file provides functions needed to do specific changes to the frames
+due to some weird behaviours by other files
+"""
 
 
-def get_month_year_id_index(num):
+def convert_month_year_into_id(file_name):
     # find the year by getting a list of all consecutive numbers
     # let the first consecutive numbers represent the year
-    y = re.findall(r"\d+", num)
+    year_name = re.findall(r"\d+", file_name)
     start_ind = 0
     end_ind = 0
     # get start and end point of the month in the key
-    while not num[end_ind].isdigit():
+    while not file_name[end_ind].isdigit():
         end_ind += 1
-        if num[end_ind] == "/":
+        if file_name[end_ind] == "/":
             start_ind = end_ind + 1
-        if end_ind >= len(num):
+        if end_ind >= len(file_name):
             break
     # extract the string with the month, hence convert to date object
-    mon = num[start_ind:start_ind+3]
+    month_name = file_name[start_ind:start_ind + 3]
     try:
-        mon = datetime.strptime(mon, "%b")
+        month_name = datetime.strptime(month_name, "%b")
     except ValueError:
-        mon = datetime.strptime(mon, "%B")
+        month_name = datetime.strptime(month_name, "%B")
+    return int(year_name[0]), month_name.month
 
-    return int(y[0]), mon.month
 
-
-def insert_base_id(df, name_of_file_in_aws):
-    # set the old index as new column, rename and get the year/month integers
+def give_applicants_unique_id(df, aws_file_name):
     df = df.reset_index()
     df = df.rename(columns={"index": "applicant_id"})
-    y, m = get_month_year_id_index(name_of_file_in_aws)
-    # print(y, m)
+    y, m = convert_month_year_into_id(aws_file_name)
 
     # set the new index into the new format with 2-digit year,
     # 2-digit month, followed by 4-digit row index
-
     for i in range(df["applicant_id"].size):
         old_id = df.iloc[i, df.columns.get_loc("applicant_id")]
         new_id = (y % 1000) * 1000000
@@ -59,4 +45,9 @@ def insert_base_id(df, name_of_file_in_aws):
         df.iloc[i, df.columns.get_loc("applicant_id")] = new_id
     return df
 
+
+def reset_row_ids(df):
+    df = df.reset_index()
+    df = df.drop(columns="index")
+    return df
 
