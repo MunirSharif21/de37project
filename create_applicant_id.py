@@ -1,5 +1,7 @@
 from cleaning_functions import *
 import re
+import pandas as pd
+from datetime import datetime
 # from extract_columns_into_new_table import *
 
 ##########
@@ -8,8 +10,8 @@ pd.set_option('display.width', 400)
 pd.set_option('max_colwidth', 800)
 ##########
 
-# df4 = get_clean_DF4(k="Talent/May2019Applicants.csv")
-# k = "Talent/May2019Applicants.csv"
+df4 = get_clean_DF4(k="Talent/May2019Applicants.csv")
+k = "Talent/May2019Applicants.csv"
 # df2 = get_clean_DF2()
 
 
@@ -30,8 +32,11 @@ def get_month_year_id_index(num):
         if end_ind >= len(num):
             break
     # extract the string with the month, hence convert to date object
-    mon = num[start_ind:end_ind]
-    mon = datetime.strptime(mon, "%b")
+    mon = num[start_ind:start_ind+3]
+    try:
+        mon = datetime.strptime(mon, "%b")
+    except ValueError:
+        mon = datetime.strptime(mon, "%B")
 
     return int(y[0]), mon.month
 
@@ -41,7 +46,7 @@ def insert_base_id(df, name_of_file_in_aws):
     df = df.reset_index()
     df = df.rename(columns={"index": "applicant_id"})
     y, m = get_month_year_id_index(name_of_file_in_aws)
-    print(y, m)
+    # print(y, m)
 
     # set the new index into the new format with 2-digit year,
     # 2-digit month, followed by 4-digit row index

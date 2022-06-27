@@ -9,7 +9,7 @@ pd.set_option('max_colwidth', 800)
 ##########
 
 df4 = get_clean_DF4(k="Talent/May2019Applicants.csv")
-k = "Talent/May2019Applicants.csv"
+# k = "Talent/May2019Applicants.csv"
 df2 = get_clean_DF2()
 
 
