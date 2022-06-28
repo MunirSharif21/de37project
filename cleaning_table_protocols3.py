@@ -52,7 +52,7 @@ def clean_json():
     return df_c3
 
 
-print(clean_applicants()[:10])
-print(clean_candidates()[:10])
-print(clean_json()[:10])
+# print(clean_applicants()[:10])
+# print(clean_candidates()[:10])
+# print(clean_json()[:10])
 

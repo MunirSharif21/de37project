@@ -26,7 +26,7 @@ def normalise(df, col_names, index=None, deletion=False, old_id=False, new_id=Fa
 
     elif new_id:
         new_df, key_mapping = generate_new_ids(new_df, index)
-        df = apply_to_each_row_in_column(df, "invited_by", key_mapping, not_dict=False)
+        df = apply_to_each_row_in_column(df, index, key_mapping, not_dict=False)
 
     if deletion:
         df = df.drop(columns=col_names)
