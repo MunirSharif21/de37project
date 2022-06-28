@@ -1,5 +1,5 @@
 from cleaning_table_protocols3 import *
-from normalisation_protocols import *
+from normalisation_functions import *
 
 """
 This file takes a clean table and hence applies normalisation
