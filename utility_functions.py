@@ -1,5 +1,6 @@
 import re
 from datetime import datetime
+import pickle
 
 
 """
@@ -50,4 +51,19 @@ def reset_row_ids(df):
     df = df.reset_index()
     df = df.drop(columns="index")
     return df
+
+
+def save_file(file, filename):
+    with open(filename, 'wb') as handle:
+        pickle.dump(file, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+def load_file(filename):
+    with open(str(filename), 'rb') as handle:
+        b = pickle.load(handle)
+    return b
+
+
+def save_excel(file, filename):
+    file.to_excel(str(str(filename) + ".xlsx"))
 

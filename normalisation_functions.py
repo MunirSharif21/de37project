@@ -47,6 +47,11 @@ def generate_new_ids(df, column_name):
     df_set = df_set.reset_index()
     df_set = df_set.rename(columns={"index": column_name})
     df_set = df_set.drop(columns=0)
+    df_set = df_set.dropna()
+    df_set = df_set.reset_index()
+    df_set = df_set.drop(columns="index")
+    df_set = df_set.reset_index()
+    df_set = df_set.rename(columns={"index": "id"})
 
     # create a map for the values in the original table to replace the values there
     key_mapping = df_set.to_dict()[column_name]
@@ -54,4 +59,3 @@ def generate_new_ids(df, column_name):
     key_mapping = dict((v, k) for k, v in key_mapping.items())
 
     return df_set, key_mapping
-

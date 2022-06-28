@@ -56,6 +56,25 @@ def split_name_into_3(df, col_name="name"):
     return df
 
 
+def split_name_into_2(df, col_name="name"):
+    first_names = []
+    last_names = []
+    for i in range(0, df[col_name].size):
+        try:
+            full_name = df.iloc[i, df.columns.get_loc(col_name)]
+            all_names = full_name.split()
+            first_names.append(all_names[0])
+            last_names.append("".join(all_names[1:]))
+        except IndexError:
+            print(i)
+    df.insert(1, "first_name", first_names)
+    df.insert(2, "last_names", last_names)
+    # print(first_names)
+    # print(last_names)
+    df = df.drop(columns=col_name)
+    return df
+
+
 def clean_phone_numbers(num):
     # filter out the specified characters
     num = str(num)
@@ -86,4 +105,12 @@ def clean_invited_date(old_date):
     temp_date = datetime.strptime(extract_day, "%d")
     new_date = temp_date.strftime("%d")
     return new_date
+
+
+def fix_spelling(name):
+    if name == "Bruno Bellbrook":
+        return "Bruno Belbrook"
+    if name == "Fifi Eton":
+        return "Fifi Etton"
+    return name
 
