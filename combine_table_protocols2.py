@@ -1,4 +1,5 @@
 import pandas as pd
+from tqdm import tqdm
 from aws_protocols1 import *
 from clean_functions import *
 from utility_functions import *
@@ -32,7 +33,16 @@ def combine_applicants_tables():
     return df_c2
 
 
+def combine_json():
+    try:
+        df_c2 = load_file("json_download")
+    except FileNotFoundError:
+        print("Writing new file...")
+        df_c2 = json_download()
+        save_file(df_c2, "json_download")
+    return df_c2
+
 
 # MAIN
 
-# print(combine_applicants_tables())
+# print(combine_json())

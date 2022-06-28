@@ -2,6 +2,7 @@ import boto3
 import botocore
 import json
 import pandas as pd
+from tqdm import tqdm
 from botocore.exceptions import ClientError
 
 """
@@ -44,11 +45,31 @@ def download_raw_aws_file(file_name):
     return raw_data
 
 
+def json_download():
+    bucket_name = 'data-eng-37-final-project'
+    bucket = s3_resource.Bucket(bucket_name)
+    bucket_resources = bucket.objects.all()
+    talent_json = []
+
+    for i in bucket_resources:
+        if '.json' in i.key:
+            talent_json.append(i.key)
+
+    talent_data = []
+
+    for i in tqdm(talent_json):
+        talent_data.append(json.loads(s3_resource.Object(bucket_name, i).get()['Body'].read()))
+
+    return talent_data
+
+
 def cleaning_stage_1(file_name):
     raw_data = download_raw_aws_file(file_name)
     # check file type and apply the correct loading method
     if ".json" in file_name:
-        df_c1 = json.loads(raw_data)
+        # print(raw_data["Body"].read())
+        # df_c1 = json.loads(raw_data["Body"].read())
+        df_c1 = json.loads(raw_data["Body"].read())
     elif ".txt" in file_name:
         df_c1 = pd.read_csv(raw_data["Body"], sep="\t", header=None)
     elif ".csv" in file_name:

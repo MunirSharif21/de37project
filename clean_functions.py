@@ -132,10 +132,7 @@ def fix_index(df0):
     return df0
 
 
-# def double_slash_date_clean(old_date):
-#     try:
-#         temp_date = datetime.strptime(old_date, "%d/%m/%Y")
-#     except:
-#         temp_date = datetime.strptime(old_date, "%d/%m/%Y")
-#     new_date = temp_date.strftime("%Y/%m/%d")
+def fix_double_slash(value):
+    value = value.replace("//", "/")
+    return value
 

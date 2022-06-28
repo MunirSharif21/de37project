@@ -64,6 +64,16 @@ def load_file(filename):
     return b
 
 
+def save_load_file(file, filename):
+    ret = 0
+    try:
+        ret = load_file(filename)
+    except FileNotFoundError:
+        save_file(file, filename)
+        ret = file
+    return ret
+
+
 def save_excel(file, filename):
     file.to_excel(str(str(filename) + ".xlsx"))
 
