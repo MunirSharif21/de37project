@@ -1,4 +1,4 @@
-from cleaning_table_protocols import *
+from cleaning_table_protocols3 import *
 from normalisation_protocols import *
 
 """
