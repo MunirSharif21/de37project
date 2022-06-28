@@ -114,3 +114,28 @@ def fix_spelling(name):
         return "Fifi Etton"
     return name
 
+
+def removeFraction(value):
+    for i, v in enumerate(value):
+        if v == "/":
+            return value[:i]
+
+
+def removeAcademyWord(value):
+    value = value.replace("Academy", "")
+    return value
+
+
+def fix_index(df0):
+    df0 = df0.reset_index()
+    df0 = df0.drop(columns="index")
+    return df0
+
+
+# def double_slash_date_clean(old_date):
+#     try:
+#         temp_date = datetime.strptime(old_date, "%d/%m/%Y")
+#     except:
+#         temp_date = datetime.strptime(old_date, "%d/%m/%Y")
+#     new_date = temp_date.strftime("%Y/%m/%d")
+
