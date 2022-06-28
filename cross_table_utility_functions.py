@@ -11,6 +11,7 @@ This file matches the applicant ID from the applicants table to other files
 def generate_name_date_id_map():
     df = clean_applicants_table()
     name_date_id = {}
+    map2 = {}
     # if month < 10:
     #     month_padding = "0" + str(month)
     # else:
@@ -24,31 +25,36 @@ def generate_name_date_id_map():
         key = str(f_name) + str(l_name) + str(d_name)
         app_id = df.iloc[row, df.columns.get_loc("applicant_id")]
         name_date_id[key] = app_id
+        map2[str(f_name) + str(l_name)] = app_id
 
-    return name_date_id
+    return name_date_id, map2
 
 
 def json_add_applicant_id(df0):
     id_list = []
-    mapping = generate_name_date_id_map()
-    for row in range(df0["applicant_id"].size):
+    mapping, mapping2 = generate_name_date_id_map()
+    # print(mapping)
+    for row in range(df0["first_name"].size):
         f_name = df0.iloc[row, df0.columns.get_loc("first_name")]
         l_name = df0.iloc[row, df0.columns.get_loc("last_names")]
 
         old_date = df0.iloc[row, df0.columns.get_loc("date")]
-        temp_date = datetime.strptime(old_date, "%d/%m/%Y")
+        temp_date = datetime.strptime(old_date, "%Y/%m/%d")
         new_date = temp_date.strftime("%m/%Y")
 
         key = str(f_name).lower() + str(l_name).lower() + str(new_date)
-        id_value = mapping[key]
+        try:
+            id_value = mapping[key]
+        except KeyError:
+            id_value = mapping2[str(f_name).lower() + str(l_name).lower()]
         id_list.append(id_value)
-    df0.insert(1, "applicant_id", id_list)
+    df0.insert(0, "applicant_id", id_list)
     return df0
 
 
 def txt_add_applicant_id(df0):
     id_list = []
-    mapping = generate_name_date_id_map()
+    mapping, map2 = generate_name_date_id_map()
     # print(df0)
     for row in range(df0["Name"].size):
         name = df0.iloc[row, df0.columns.get_loc("Name")].lower()
@@ -60,7 +66,10 @@ def txt_add_applicant_id(df0):
         new_date = temp_date.strftime("%m/%Y")
         key = name + str(new_date)
         # print(key, mapping[key])
-        id_list.append(mapping[key])
+        try:
+            id_list.append(mapping[key])
+        except KeyError:
+            id_list.append(map2[key])
     df0.insert(0, "applicant_id", id_list)
     return df0
 

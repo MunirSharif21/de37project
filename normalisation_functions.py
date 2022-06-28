@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from clean_functions import apply_to_each_row_in_column
 
 """
@@ -25,7 +26,7 @@ def normalise(df, col_names, index=None, deletion=False, old_id=False, new_id=Fa
 
     elif new_id:
         new_df, key_mapping = generate_new_ids(new_df, index)
-        df = apply_to_each_row_in_column(df, "invited_by", key_mapping, not_dict=False)
+        df = apply_to_each_row_in_column(df, index, key_mapping, not_dict=False)
 
     if deletion:
         df = df.drop(columns=col_names)
@@ -59,3 +60,19 @@ def generate_new_ids(df, column_name):
     key_mapping = dict((v, k) for k, v in key_mapping.items())
 
     return df_set, key_mapping
+
+
+# NOT FINISHED
+def split_up_column(df, col_name):
+    # print(df[:10])
+    df = df.fillna(value=np.nan)
+    temp_col = df["tech_self_score"]
+    score_list = []
+    for row in range(df["tech_self_score"].size):
+        score_list.append(*temp_col.iloc[0].values())
+    print(score_list[0])
+    new_df = df.explode(col_name)
+    # print(new_df[:10])
+
+
+

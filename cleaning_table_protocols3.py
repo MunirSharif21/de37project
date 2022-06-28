@@ -35,6 +35,24 @@ def clean_candidates():
     return df_c3
 
 
-# print(clean_applicants())
-print(clean_candidates())
+def clean_json():
+    df_c3 = combine_json()
+    df_c3 = pd.DataFrame(df_c3)
+    # split name
+    df_c3 = split_name_into_2(df_c3, "name")
+    # fix double slashes
+    df_c3 = apply_to_each_row_in_column(df_c3, "date", fix_double_slash)
+    # change format of dob
+    df_c3 = apply_to_each_row_in_column(df_c3, "date", change_date_to_ymd)
+    # add applicant ID
+    df_c3 = json_add_applicant_id(df_c3)
+    # swap columns
+    col_list = list(df_c3)
+    col_list[0], col_list[1] = col_list[1], col_list[0]
+    return df_c3
+
+
+# print(clean_applicants()[:10])
+# print(clean_candidates()[:10])
+# print(clean_json()[:10])
 
