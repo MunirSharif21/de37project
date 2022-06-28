@@ -28,6 +28,7 @@ def get_tables():
     print(df_app, df_rec, sep="\n")
     return df_app, df_add, df_rec
 
+
 # MAIN
 
 

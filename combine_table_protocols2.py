@@ -32,6 +32,7 @@ def combine_applicants_tables():
     return df_c2
 
 
+
 # MAIN
 
 # print(combine_applicants_tables())
