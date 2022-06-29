@@ -82,7 +82,8 @@ def get_tables_1():
 def get_tables_2():
     df_json = clean_json()
     df_json, df_scores, df_stren, df_weak, df_lang, df_stren_names, df_weak_names = candidates_scores_strengths(df_json)
-
+    df_stren = df_stren.rename(columns={"strengths": "strength_id"})
+    df_weak = df_stren.rename(columns={"weaknesses": "weakness_id"})
     return df_json, df_scores, df_stren, df_weak, df_lang, df_stren_names, df_weak_names
 
 
