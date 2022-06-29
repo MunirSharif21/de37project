@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 trainer_id,first_name,last_name
 0,Elly,Kelly
 1,Martina,Meadows
@@ -16,3 +17,23 @@ trainer_id,first_name,last_name
 14,John,Sandbox
 15,Hamzah,Melia
 16,Igor,Coates
+=======
+trainer_id,first_name,last_name
+0,Bruce,Lugo
+1,Burhan,Milner
+2,Edward,Reinhart
+3,Elly,Kelly
+4,Eshal,Brandt
+5,Gina,Cartwright
+6,Gregor,Gomez
+7,Hamzah,Melia
+8,Igor,Coates
+9,John,Sandbox
+10,Lucy,Foster
+11,Macey,Broughton
+12,Martina,Meadows
+13,Mohammad,Velazquez
+14,Neil,Mccarthy
+15,Rachel,Richard
+16,Trixie,Orange
+>>>>>>> 4f5f01a2dc77fc068e73cd7f2c149f847f16a7a2
