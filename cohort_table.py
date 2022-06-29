@@ -41,10 +41,3 @@ def cohort_table_function():
 
 print(cohort_table_function())
 
-
-#print(check_course_length(files[0]))
-#print(weeks_completed(files[0]))
-#print(weeks_completed(files[3]))
-
-#print(len(files))
-
