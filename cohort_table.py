@@ -19,7 +19,7 @@ def weeks_completed(file_name):
     col3 = []
     col4 = [str(file_name)[-14:-4]] * (len(df0.index))
     for i in range(0, len(df0.index)):
-        col2.append(file_name.strip("Academy/")[:-15])
+        col2.append(file_name.replace('_', ' ').strip("Academy/")[:-15])
         col3.append(int(check_course_length(file_name) - df0.loc[[i]].isna().sum().sum()/6))
     df1 = pd.DataFrame({"Name":df0.iloc[:,0], "cohort_id": col2, "weeks_completed" : col3, "date_on_file": col4})
     return df1
