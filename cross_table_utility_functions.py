@@ -74,6 +74,9 @@ def txt_add_applicant_id(df0):
     return df0
 
 
+def fix_double_date(df):
+    print(df)
+
 # MAIN
 
 # HILARY WILLMORE
