@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from datetime import datetime
 
 """
@@ -18,7 +19,7 @@ def apply_to_each_row_in_column(df, col_name, function, not_dict=True):
     for row in range(df[col_name].size):
         old_value = df.iloc[row, df.columns.get_loc(col_name)]
         if pd.isnull(old_value):
-            new_value = pd.NA
+            new_value = np.nan
         else:
             # if a function is used, use round brackets, if dict, use square
             if not_dict:
@@ -136,3 +137,19 @@ def fix_double_slash(value):
     value = value.replace("//", "/")
     return value
 
+
+def combine_date_month(df):
+    df["invited_date"] = df["invited_date"] + "/" + df["month"]
+    return df
+
+
+def swap_specific_columns(df, index_1, index_2):
+    col_list = list(df)
+    col_list[index_1], col_list[index_2] = col_list[index_2], col_list[index_1]
+    df.columns = col_list
+    return df
+
+
+def date_dash_removal(value):
+    value = value.replace("-", "/")
+    return value

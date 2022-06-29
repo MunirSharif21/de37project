@@ -2,6 +2,7 @@ from combine_table_protocols2 import *
 from elios_file import *
 from cross_table_utility_functions import *
 from clean_applicants_table import *
+from academy_table import *
 
 """
 This file contains functions that actually clean the date
@@ -49,6 +50,25 @@ def clean_json():
     # swap columns
     col_list = list(df_c3)
     col_list[0], col_list[1] = col_list[1], col_list[0]
+    return df_c3
+
+
+def clean_academy(force_refresh):
+    if force_refresh:
+        df_c3 = main2()
+        save_file(df_c3, "df_academy")
+    try:
+        df_c3 = load_file("df_academy")
+    except FileNotFoundError:
+        print("Writing new file...\ndf_academy")
+        df_c3 = main2()
+        save_file(df_c3, "df_academy")
+    # clean dates
+    df_c3 = apply_to_each_row_in_column(df_c3, "date_on_file", date_dash_removal)
+    # split names
+    df_c3 = split_name_into_2(df_c3, "name")
+    # add applicant ID
+    df_c3 = json_add_applicant_id(df_c3, col_name="date_on_file")
     return df_c3
 
 
