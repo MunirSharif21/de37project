@@ -35,7 +35,7 @@ def save_to_csv():
     # df_behaviours.to_pickle("tables/behaviours")
 
 
-# save_to_csv()
+save_to_csv()
 all_tables = []
 # print(pd.read_pickle("tables/tech_scores_table.csv"))
 # for i in get_tables_1():
