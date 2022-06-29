@@ -19,6 +19,13 @@ def clean_applicants_table():
     df_c3 = df_c3.rename(columns={"uni": "university"})
     # fix trainer names
     df_c3 = apply_to_each_row_in_column(df_c3, "invited_by", fix_spelling)
+    # combine invited_date and month, then change format and remove redundant column
+    df_c3 = combine_date_month(df_c3)
+    df_c3 = apply_to_each_row_in_column(df_c3, "invited_date", change_date_to_ymd)
+    # df_c3 = delete_column(df_c3, "date")
+    # print(df_c3[:5])
+
+    # print(df_c3[:5])
     return df_c3
 
 

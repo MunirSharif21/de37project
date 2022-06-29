@@ -63,16 +63,34 @@ def generate_new_ids(df, column_name):
 
 
 # NOT FINISHED
-def split_up_column(df, col_name):
+def split_up_column(df, col_name, new_col_name, not_list=True, single_index=False):
     # print(df[:10])
     df = df.fillna(value=np.nan)
-    temp_col = df["tech_self_score"]
+    temp_col = df[col_name]
     score_list = []
-    for row in range(df["tech_self_score"].size):
-        score_list.append(*temp_col.iloc[0].values())
-    print(score_list[0])
+    for row in range(df[col_name].size):
+        if not_list:
+            try:
+                for key in temp_col.iloc[row].keys():
+                    score_list.append(temp_col.iloc[row][key])
+            except AttributeError:
+                # if no scores for the person, set the single score as 0
+                score_list.append(0)
+                pass
+        else:
+            for i in temp_col.iloc[row]:
+                score_list.append(i)
+        # score_list.append((temp_col.iloc[0].items())[0][0])
+    # print(score_list)
     new_df = df.explode(col_name)
+    # print(new_df)
+    if not single_index:
+        new_df.insert(1, new_col_name, score_list)
+        new_df = new_df.reset_index()
+        new_df = new_df.drop(columns="index")
     # print(new_df[:10])
+    # print("hi")
+    return new_df
 
 
 
