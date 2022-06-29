@@ -3,6 +3,7 @@ from elios_file import *
 from cross_table_utility_functions import *
 from clean_applicants_table import *
 from academy_table import *
+from cohort_table import *
 
 """
 This file contains functions that actually clean the date
@@ -55,6 +56,7 @@ def clean_json():
 
 def clean_academy(force_refresh):
     if force_refresh:
+        print("Writing new file...\ndf_academy")
         df_c3 = main2()
         save_file(df_c3, "df_academy")
     try:
@@ -69,6 +71,24 @@ def clean_academy(force_refresh):
     df_c3 = split_name_into_2(df_c3, "name")
     # add applicant ID
     df_c3 = json_add_applicant_id(df_c3, col_name="date_on_file")
+    return df_c3
+
+
+def clean_cohort(force_refresh):
+    if force_refresh:
+        print("Writing new file...\ndf_cohort")
+        df_c3 = cohort_table_function()
+        save_file(df_c3, "df_cohort")
+    try:
+        df_c3 = load_file("df_cohort")
+    except FileNotFoundError:
+        print("Writing new file...\ndf_cohort")
+        df_c3 = main2()
+        save_file(df_c3, "df_cohort")
+    # cleaning
+    df_c3 = split_name_into_2(df_c3, "Name")
+    # clean dates
+    df_c3 = apply_to_each_row_in_column(df_c3, "date_on_file", date_dash_removal)
     return df_c3
 
 
