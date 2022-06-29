@@ -2,7 +2,6 @@ from aws_protocols1 import *
 
 # this is probably very inefficient
 
-files = search_aws_bucket_files("Academy/")
 # files = ["Academy/Data_37_2019-11-18.csv"]
 
 
@@ -54,9 +53,13 @@ def union_groups(file_list):
 # this will print the academy tables (need to replace name with applicant id) with an extra column for the
 # dates named on each file to match applicants
 
-all_files = union_groups(files)
-all_files.index=range(0,len(all_files))
-print(all_files)
+def main2():
+    files = search_aws_bucket_files("Academy/")
+    all_files = union_groups(files)
+    all_files.index=range(0,len(all_files))
+    return all_files
+#print(all_files)
 
+print(main2())
 
 
