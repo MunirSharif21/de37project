@@ -96,7 +96,10 @@ def get_tables_3():
 
 def get_tables_4(force_refresh=False):
     df_academy = clean_academy(force_refresh)
-
+    df_academy = df_academy.drop(columns=["first_name", "last_names", "date_on_file"])
+    # print(df_academy)
+    # df_academy, df_behaviours = normalise(df_academy, ["behaviour"], deletion=False,
+    #                                       new_id=True, index="behaviour")
     return df_academy
 
 # MAIN
