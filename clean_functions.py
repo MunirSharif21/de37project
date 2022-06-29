@@ -136,3 +136,7 @@ def fix_double_slash(value):
     value = value.replace("//", "/")
     return value
 
+
+def date_dash_removal(value):
+    value = value.replace("-", "/")
+    return value

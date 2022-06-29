@@ -30,7 +30,7 @@ def generate_name_date_id_map():
     return name_date_id, map2
 
 
-def json_add_applicant_id(df0):
+def json_add_applicant_id(df0, col_name="date", custom_date_format="%Y/%m/%d"):
     id_list = []
     mapping, mapping2 = generate_name_date_id_map()
     # print(mapping)
@@ -38,8 +38,8 @@ def json_add_applicant_id(df0):
         f_name = df0.iloc[row, df0.columns.get_loc("first_name")]
         l_name = df0.iloc[row, df0.columns.get_loc("last_names")]
 
-        old_date = df0.iloc[row, df0.columns.get_loc("date")]
-        temp_date = datetime.strptime(old_date, "%Y/%m/%d")
+        old_date = df0.iloc[row, df0.columns.get_loc(col_name)]
+        temp_date = datetime.strptime(old_date, custom_date_format)
         new_date = temp_date.strftime("%m/%Y")
 
         key = str(f_name).lower() + str(l_name).lower() + str(new_date)
@@ -52,14 +52,14 @@ def json_add_applicant_id(df0):
     return df0
 
 
-def txt_add_applicant_id(df0):
+def txt_add_applicant_id(df0, col_name="Date", name_col_name="Name"):
     id_list = []
     mapping, map2 = generate_name_date_id_map()
     # print(df0)
-    for row in range(df0["Name"].size):
-        name = df0.iloc[row, df0.columns.get_loc("Name")].lower()
+    for row in range(df0[name_col_name].size):
+        name = df0.iloc[row, df0.columns.get_loc(name_col_name)].lower()
         name = name.replace(" ", "")
-        n_date = str(df0.iloc[row, df0.columns.get_loc("Date")])
+        n_date = str(df0.iloc[row, df0.columns.get_loc(col_name)])
         n_date = n_date[:7]
 
         temp_date = datetime.strptime(n_date, "%Y/%m")

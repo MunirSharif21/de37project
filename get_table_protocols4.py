@@ -1,6 +1,7 @@
 from cleaning_table_protocols3 import *
 from normalisation_functions import *
 
+
 """
 This file takes a clean table and hence applies normalisation
 to it
@@ -69,7 +70,15 @@ def get_tables_2():
 def get_tables_3():
     df_candidates = clean_candidates()
     df_candidates, df_locations = candidates_academy(df_candidates)
-    print(df_locations)
+    # print(df_locations)
 
     return df_candidates, df_locations
+
+
+def get_tables_4(force_refresh=False):
+    df_academy = clean_academy(force_refresh)
+
+    return df_academy
+
 # MAIN
+
