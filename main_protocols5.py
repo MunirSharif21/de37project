@@ -22,11 +22,14 @@ def save_to_csv():
     df_candidates.to_pickle("tables/assessment_day_table.csv")
     df_locations.to_pickle("tables/location_table.csv")
     df_stren_names.to_pickle("tables/strength_names.csv")
+    df_stren.to_pickle("tables/strengths.csv")
+    df_weak.to_pickle("tables/weaknesses.csv")
     df_weak_names.to_pickle("tables/weak_names.csv")
     df_academy.to_pickle("tables/academy.csv")
+    # df_behaviours.to_pickle("tables/behaviours")
 
 
-# save_to_csv()
+save_to_csv()
 all_tables = []
 # for i in get_tables_1():
 #     all_tables.append(i)
@@ -34,11 +37,14 @@ all_tables = []
 #     all_tables.append(i)
 # for i in get_tables_3():
 #     all_tables.append(i)
+# for i in get_tables_4():
+#     all_tables.append(i)
 
 # df_app, df_add, df_rec = get_tables_1()
 # df_json, df_scores, df_stren, df_weak = get_tables_2()
 # df_candidates, df_locations = get_tables_3()
-df_academy = get_tables_4()
+# df_academy = get_tables_4()
+# print(df_academy[:10])
 
 
 # print(df_app, df_add, df_rec, sep="\n")
@@ -46,12 +52,12 @@ df_academy = get_tables_4()
 # save_excel(df_app, "applicants_table")
 # save_excel(df_add, "address_table")
 # save_excel(df_rec, "recruiters_table")
-# lim = 99
+# lim = 0
 # for i, v in enumerate(all_tables):
 #     if i >= lim:
 #         break
-#     print(v[:10], end="\n\n")
+#     print(v[:20], end="\n\n")
 
-print(df_academy[:10])
-
+# print(df_academy[:10])
+# print(df_behaviours[:10])
 
