@@ -52,11 +52,11 @@ all_tables = []
 # save_excel(df_app, "applicants_table")
 # save_excel(df_add, "address_table")
 # save_excel(df_rec, "recruiters_table")
-# lim = 0
-# for i, v in enumerate(all_tables):
-#     if i >= lim:
-#         break
-#     print(v[:20], end="\n\n")
+lim = 20
+for i, v in enumerate(all_tables):
+    if i >= lim:
+        break
+    print(v[:20], end="\n\n")
 
 # print(df_academy[:10])
 # print(df_behaviours[:10])
