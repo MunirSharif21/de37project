@@ -32,14 +32,14 @@ def text_change(df0):
         x = x.replace(":", ",")
         x = x.replace("\nName", " ")
         x2 = x.split(",")
-        y0 = x2[0].replace("0", "")  # Removes zeros
-        y0 = y0.strip()
+        # y0 = x2[0].replace("0", "")  # Removes zeros
+        # y0 = y0.strip()
         y1 = x2[2].strip()
         y2 = x2[4].strip()
-        temp_list.append([y0, y1, y2, date, location])
+        temp_list.append([y1, y2, location, date])
     return temp_list
 
-def athens_day_scores():  # gets the keys as a list of strings for all .csv files in the Talent/ folder
+def athens_day_info_normalisation():  # gets the keys as a list of strings for all .csv files in the Talent/ folder
     keys = [o.key for o in s3_resource.Bucket(bucket_name).objects.all()]
 
     filtered_keys = []
@@ -62,13 +62,21 @@ def athens_day_scores():  # gets the keys as a list of strings for all .csv file
         pd_y.to_csv(sep=",", index=False)
         full_table.append(pd_y)
 
-    combined_df = pd.concat(full_table)
+    combined_df = pd.concat(full_table).reset_index()
 
-    combined_df.columns = ["Name", "Psychometrics", "Presentation", "Date", "Location"]
+    combined_df.columns = ["Name", "Psychometrics", "Presentation", "Location", "Date"]
 
-    combined_csv = combined_df.to_csv('text_file_data.csv')
+    df_new2 = combined_df.iloc[:, [3, 4]].drop_duplicates().sort_values("Date").reset_index().drop('index', axis=1)
 
-    return combined_csv
+    df_new = df_new2.rename(columns={'Location': 'academy_name', 'Date': 'date'})
 
-print(athens_day_scores())
+    df_new.index.name = 'academy_day_id'
+
+    csv_new = df_new.to_csv('athens_day_info.csv')
+
+    return csv_new
+
+
+print(athens_day_info_normalisation())
+
 
