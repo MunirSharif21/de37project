@@ -22,14 +22,14 @@ def save_to_csv():
     df_weak_names.to_csv("tables/weak_names.csv")
 
 
-save_to_csv()
+# save_to_csv()
 all_tables = []
-# for i in get_tables_1():
-#     all_tables.append(i)
+for i in get_tables_1():
+    all_tables.append(i)
 for i in get_tables_2():
     all_tables.append(i)
-# for i in get_tables_3():
-#     all_tables.append(i)
+for i in get_tables_3():
+    all_tables.append(i)
 
 # print(df_app, df_add, df_rec, sep="\n")
 
@@ -38,7 +38,7 @@ for i in get_tables_2():
 # save_excel(df_rec, "recruiters_table")
 
 
-lim = 0
+lim = 100
 for i, v in enumerate(all_tables):
     if i >= lim:
         break
