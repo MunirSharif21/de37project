@@ -1,4 +1,5 @@
 from aws_protocols1 import *
+from academy_table import *
 
 
 # print(cleaning_stage_1("Academy/Data_37_2019-11-18.csv"))
@@ -23,3 +24,8 @@ def weeks_completed(df0):
 # print(cleaning_stage_1("Academy/Data_37_2019-11-18.csv"))
 # print(cleaning_stage_1("Academy/Data_37_2019-11-18.csv").loc[[0]].isna().sum().sum())
 # print(weeks_completed(cleaning_stage_1("Academy/Data_37_2019-11-18.csv")))
+
+
+print(cohort_table_function())
+
+
