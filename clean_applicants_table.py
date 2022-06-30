@@ -24,6 +24,9 @@ def clean_applicants_table():
     df_c3 = apply_to_each_row_in_column(df_c3, "invited_date", change_date_to_ymd)
     # df_c3 = delete_column(df_c3, "date")
     # print(df_c3[:5])
+    # clean capitals
+    df_c3 = apply_to_each_row_in_column(df_c3, "last_names", fix_capitals)
+    df_c3 = apply_to_each_row_in_column(df_c3, "first_name", fix_capitals)
 
     # print(df_c3[:5])
     return df_c3

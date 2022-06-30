@@ -160,3 +160,12 @@ def remove_underscore(value):
     value = value.upper()
     return value
 
+
+def fix_capitals(value):
+    value = value.lower()
+    sep = value.split()
+    for i, v in enumerate(sep):
+        new_str = v[0].upper()
+        sep[i] = new_str + sep[i][1:]
+    new_val = "".join(sep)
+    return new_val

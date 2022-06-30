@@ -29,6 +29,8 @@ def clean_candidates():
     df_c3 = txt_add_applicant_id(df_c3)
     # split name
     df_c3 = split_name_into_2(df_c3, "Name")
+    # fix name capitals
+    df_c3 = apply_to_each_row_in_column(df_c3, "last_names", fix_capitals)
     # remove fractions from scores
     df_c3 = apply_to_each_row_in_column(df_c3, "Psychometrics", removeFraction)
     df_c3 = apply_to_each_row_in_column(df_c3, "Presentation", removeFraction)

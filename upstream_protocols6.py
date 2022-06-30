@@ -29,11 +29,12 @@ csv_location = "C:/Users/Konrad/OneDrive/_Sparta/_project/clean_csv"
 dir_list = os.listdir(csv_location)
 
 
-def iterate_tables(tables_list):
-    table_names = ["df_app", "df_add", "df_rec", "df_json", "df_scores",
-                   "df_stren", "df_weak", "df_lang", "df_stren_names",
-                   "df_weak_names", "df_candidates", "df_academy",
-                   "df_cohort", "df_cohort_info"]
+def add_tables_to_sql(tables_list):
+    # table_names = ["applicant", "address", "recruiter", "athens_day", "scores",
+    #                "strength", "weakness", "language_name", "strength_name",
+    #                "weakness_name", "candidates", "academy",
+    #                "cohort", "cohort_info"]
+    table_names = ["strength_name"]
     for i, v in tqdm(enumerate(table_names)):
         table = tables_list[i]
         table.to_sql(v, engine, if_exists="replace", index=False)
@@ -49,12 +50,16 @@ def iterate_tables(tables_list):
 
 
 # MAIN
-try:
-    tables = load_file("tables_list")
-except FileNotFoundError:
+force_update = True
+if force_update:
     tables = get_all_tables_list()
-    save_file(tables, "tables_list")
+else:
+    try:
+        tables = load_file("tables_list")
+    except FileNotFoundError:
+        tables = get_all_tables_list()
+        save_file(tables, "tables_list")
 # print(tables[0][:10])
-iterate_tables(tables)
+# add_tables_to_sql(tables)
 
 

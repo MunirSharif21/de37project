@@ -40,7 +40,9 @@ def save_to_csv():
 
 
 reset_log()
-# save_to_csv()
+
+
+save_to_csv()
 
 # print(pd.read_pickle("tables_pickle_file")[:20])
 
@@ -57,8 +59,19 @@ def get_all_tables_list():
         all_tables.append(i)
     return all_tables
 
+
+# all_tables = []
+# for i in tqdm(get_tables_1()):
+#     all_tables.append(i)
+# for i in tqdm(get_tables_2()):
+#     all_tables.append(i)
+# for i in tqdm(get_tables_3()):
+#     all_tables.append(i)
+# for i in tqdm(get_tables_4()):
+#     all_tables.append(i)
+
 # lim = 99
 # for i, v in enumerate(all_tables):
 #     if i >= lim:
 #         break
-#     print(v[:20], end="\n\n")
+#     print(v[3590:3600], end="\n\n")
