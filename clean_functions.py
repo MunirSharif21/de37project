@@ -153,3 +153,10 @@ def swap_specific_columns(df, index_1, index_2):
 def date_dash_removal(value):
     value = value.replace("-", "/")
     return value
+
+
+def remove_underscore(value):
+    value = value.replace("_", "")
+    value = value.upper()
+    return value
+
