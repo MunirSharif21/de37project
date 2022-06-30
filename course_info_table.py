@@ -40,4 +40,4 @@ def the_actual_course_info_table():
 
 #print(the_actual_course_info_table())
 
-the_actual_course_info_table().to_csv('course_info_table.csv')
+#the_actual_course_info_table().to_csv('course_info_table.csv')
