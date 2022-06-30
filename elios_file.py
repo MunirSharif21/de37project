@@ -2,11 +2,12 @@ import boto3
 import pandas as pd
 from datetime import datetime
 from pprint import pprint
+from aws_protocols1 import *
 
 s3_client = boto3.client('s3')
 s3_resource = boto3.resource('s3')
 
-bucket_name = 'data-eng-37-final-project'
+bucket_name = read_config()
 
 pd.set_option('display.max_columns', 15)
 pd.set_option('display.width', 400)
@@ -46,8 +47,8 @@ def text_change(df0):
 
 def main1():
 
-    bucket = s3_resource.Bucket(bucket_name)
-    bucket_resources = bucket.objects.all()
+    bucket0 = s3_resource.Bucket(bucket_name)
+    bucket_resources = bucket0.objects.all()
 
     talent_txt = []
     for i in bucket_resources:
