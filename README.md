@@ -2,7 +2,7 @@
 
 The main files have the following structure: (where the arrows show inheritence of functions, a->b means a sends functions to b)
 
-AWS -> combine_table -> cleaning_table -> get_table -> main 
+AWS -> combine_table -> cleaning_table -> get_table -> main -> upstream
 
 The other 3 files: 
 clean_function / utility_functions / normalisation 
