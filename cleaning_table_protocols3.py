@@ -105,7 +105,7 @@ def clean_cohort(force_refresh):
 def clean_course_info():
     df_c3 = the_actual_course_info_table()
     # change format of ID
-    df_c3 = df_c3 = apply_to_each_row_in_column(df_c3, "cohort_id", remove_underscore)
+    df_c3 = apply_to_each_row_in_column(df_c3, "cohort_id", remove_underscore)
     return df_c3
 
 

@@ -53,12 +53,16 @@ def candidates_scores_strengths(df_cand0):
     df_weak0, df_weak_names = normalise(df_weak0, ["weaknesses"], deletion=False,
                                         new_id=True, index="weaknesses")
     df_weak_names = df_weak_names.drop(columns="id")
+    df_weak0 = df_weak0.rename(columns={"strength_id": "weakness_id"})
     df_weak0 = df_weak0.reset_index()
     df_weak0 = df_weak0.drop(columns="index")
 
     # print(df_stren0[:20], df_stren_names[:20], sep="\n")
     # print(df_weak0[:20], df_weak_names[:20], sep="\n")
     # df_weak0 = split_up_column(df_weak0, "weaknesses")
+    df_weak0 = df_weak0.rename(columns={"strength_id": "weakness_id"})
+    # print(df_stren0[:10])
+    # print(df_weak0[:10])
     return df_cand0, df_scores0, df_stren0, df_weak0, df_lang0, df_stren_names, df_weak_names
 
 
@@ -84,7 +88,7 @@ def get_tables_2():
     df_json = clean_json()
     df_json, df_scores, df_stren, df_weak, df_lang, df_stren_names, df_weak_names = candidates_scores_strengths(df_json)
     df_stren = df_stren.rename(columns={"strengths": "strength_id"})
-    df_weak = df_stren.rename(columns={"weaknesses": "weakness_id"})
+    df_weak = df_weak.rename(columns={"weaknesses": "weakness_id"})
     return df_json, df_scores, df_stren, df_weak, df_lang, df_stren_names, df_weak_names
 
 
@@ -106,6 +110,7 @@ def get_tables_4(force_refresh=False):
     #                                       new_id=True, index="behaviour")
     df_course_info = clean_course_info()
     return df_academy, df_cohort, df_course_info
+
 
 # MAIN
 

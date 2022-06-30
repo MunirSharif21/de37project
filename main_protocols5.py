@@ -37,39 +37,24 @@ def save_to_csv():
     df_cohort_info.to_csv("clean_csv/course_info.csv")
 
 
-save_to_csv()
+# save_to_csv()
 all_tables = []
 # print(pd.read_pickle("tables_pickle_file")[:20])
 
-# for i in get_tables_1():
-#     all_tables.append(i)
-# for i in get_tables_2():
-#     all_tables.append(i)
-# for i in get_tables_3():
-#     all_tables.append(i)
+for i in get_tables_1():
+    all_tables.append(i)
+for i in get_tables_2():
+    all_tables.append(i)
+for i in get_tables_3():
+    all_tables.append(i)
 for i in get_tables_4():
     all_tables.append(i)
 
-# df_app, df_add, df_rec = get_tables_1()
-# df_json, df_scores, df_stren, df_weak = get_tables_2()
-# df_candidates, df_locations = get_tables_3()
-# df_academy = get_tables_4()
-# print(df_academy[:10])
 
-
-# print(df_app, df_add, df_rec, sep="\n")
-
-# save_excel(df_app, "applicants_table")
-# save_excel(df_add, "address_table")
-# save_excel(df_rec, "recruiters_table")
-
-lim = 20
+lim = 99
 for i, v in enumerate(all_tables):
     if i >= lim:
         break
     print(v[:20], end="\n\n")
 
-#
-# print(df_academy[:10])
-# print(df_behaviours[:10])
 

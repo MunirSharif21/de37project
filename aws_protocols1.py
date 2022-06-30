@@ -16,7 +16,28 @@ e.g. df_c2 = dataframe cleaned to stage 2
 s3_resource = boto3.resource("s3")
 s3 = s3_resource
 s3_client = boto3.client("s3")
-bucket_name = 'data-eng-37-final-project'
+
+
+def read_config():
+    """
+    Try to read the config file and return the bucket name
+    If failed, use the default name
+    :return bucket_name: String
+    """
+    try:
+        with open("config/config.txt") as f:
+            lines = f.readlines()
+        line1 = str(lines[0])
+        bucket_name_config = line1.replace("bucket_name=", "")
+    except FileNotFoundError:
+        # set default name of bucket
+        bucket_name_config = 'data-eng-37-final-project'
+    return bucket_name_config
+
+
+# read config file
+
+bucket_name = read_config()
 bucket = s3_resource.Bucket(bucket_name)
 
 
@@ -46,9 +67,9 @@ def download_raw_aws_file(file_name):
 
 
 def json_download():
-    bucket_name = 'data-eng-37-final-project'
-    bucket = s3_resource.Bucket(bucket_name)
-    bucket_resources = bucket.objects.all()
+    # bucket_name_aws = 'data-eng-37-final-project'
+    bucket_aws = s3_resource.Bucket(bucket_name)
+    bucket_resources = bucket_aws.objects.all()
     talent_json = []
 
     for i in bucket_resources:
@@ -58,7 +79,7 @@ def json_download():
     talent_data = []
 
     for i in tqdm(talent_json):
-        talent_data.append(json.loads(s3_resource.Object(bucket_name, i).get()['Body'].read()))
+        talent_data.append(json.loads(s3_resource.Object(bucket_name_aws, i).get()['Body'].read()))
 
     return talent_data
 
@@ -79,12 +100,10 @@ def cleaning_stage_1(file_name):
     return df_c1
 
 
+
 # MAIN
 
 
 # print(cleaning_stage_1("Talent/May2019Applicants.csv"))
 
 # print(search_list("Applicant"))
-
-
-
