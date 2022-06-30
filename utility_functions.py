@@ -1,6 +1,7 @@
 import re
 from datetime import datetime
 import pickle
+import os
 
 
 """
@@ -12,6 +13,7 @@ due to some weird behaviours by other files
 def convert_month_year_into_id(file_name):
     # find the year by getting a list of all consecutive numbers
     # let the first consecutive numbers represent the year
+    save_log("convert_month_year_into_id")
     year_name = re.findall(r"\d+", file_name)
     start_ind = 0
     end_ind = 0
@@ -32,6 +34,7 @@ def convert_month_year_into_id(file_name):
 
 
 def give_applicants_unique_id(df, aws_file_name):
+    save_log("give_applicants_unique_id")
     df = df.reset_index()
     df = df.rename(columns={"index": "applicant_id"})
     y, m = convert_month_year_into_id(aws_file_name)
@@ -48,23 +51,27 @@ def give_applicants_unique_id(df, aws_file_name):
 
 
 def reset_row_ids(df):
+    save_log("reset_row_ids")
     df = df.reset_index()
     df = df.drop(columns="index")
     return df
 
 
 def save_file(file, filename):
+    save_log("save_file")
     with open(filename, 'wb') as handle:
         pickle.dump(file, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 def load_file(filename):
+    save_log("load_file")
     with open(str(filename), 'rb') as handle:
         b = pickle.load(handle)
     return b
 
 
 def save_load_file(file, filename):
+    save_log("save_load_file")
     ret = 0
     try:
         ret = load_file(filename)
@@ -75,7 +82,24 @@ def save_load_file(file, filename):
 
 
 def save_excel(file, filename):
+    save_log("save_excel")
     file.to_excel(str(str(filename) + ".xlsx"))
 
+
+def save_log(text):
+    try:
+        f = open("logs/logs.txt", "a")
+        time_stamp = datetime.now()
+        now = str(time_stamp.strftime("%d/%m/%Y %H:%M:%S:%f"))
+        now = now[:-2]
+        f.write("\n[" + now + "] " + text)
+        f.close()
+    except FileNotFoundError:
+        print("No log file found")
+
+
+def reset_log():
+    with open("logs/logs.txt", "w") as myfile:
+        myfile.write(" ")
 
 

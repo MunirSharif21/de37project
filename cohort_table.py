@@ -1,16 +1,19 @@
 from aws_protocols1 import *
 from academy_table import *
+from utility_functions import save_log
 
 
 # print(cleaning_stage_1("Academy/Data_37_2019-11-18.csv"))
 
 def check_course_length(file_name):
+    save_log("check_course_length")
     """returns the number of weeks of each course as an integer"""
     df0 = cleaning_stage_1(file_name)
     return int((len(df0.columns) - 2) / 6)
 
 
 def weeks_completed(file_name):
+    save_log("weeks_completed")
     """returns dataframe listing each applicant(name - need to change to id) with their cohort_id
     and number of weeks they stayed on the course"""
     df0 = cleaning_stage_1(file_name)
@@ -25,6 +28,7 @@ def weeks_completed(file_name):
 
 
 def joined_cohort_table(file_list):
+    save_log("joined_cohort_table")
     joint_df = weeks_completed(file_list[0])
     for i in tqdm(range(1, len(file_list))):
         joint_df = pd.concat([joint_df, weeks_completed(file_list[i])])

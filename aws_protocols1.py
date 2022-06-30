@@ -79,7 +79,7 @@ def json_download():
     talent_data = []
 
     for i in tqdm(talent_json):
-        talent_data.append(json.loads(s3_resource.Object(bucket_name_aws, i).get()['Body'].read()))
+        talent_data.append(json.loads(s3_resource.Object(bucket_name, i).get()['Body'].read()))
 
     return talent_data
 

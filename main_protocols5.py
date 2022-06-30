@@ -6,6 +6,8 @@ from get_table_protocols4 import *
 """
 This is the MAIN protocols file that controls everything else
 """
+
+
 # import subprocess
 # import sys
 #
@@ -37,24 +39,26 @@ def save_to_csv():
     df_cohort_info.to_csv("clean_csv/course_info.csv")
 
 
+reset_log()
 # save_to_csv()
-all_tables = []
+
 # print(pd.read_pickle("tables_pickle_file")[:20])
 
-for i in get_tables_1():
-    all_tables.append(i)
-for i in get_tables_2():
-    all_tables.append(i)
-for i in get_tables_3():
-    all_tables.append(i)
-for i in get_tables_4():
-    all_tables.append(i)
 
+def get_all_tables_list():
+    all_tables = []
+    for i in tqdm(get_tables_1()):
+        all_tables.append(i)
+    for i in tqdm(get_tables_2()):
+        all_tables.append(i)
+    for i in tqdm(get_tables_3()):
+        all_tables.append(i)
+    for i in tqdm(get_tables_4()):
+        all_tables.append(i)
+    return all_tables
 
-lim = 99
-for i, v in enumerate(all_tables):
-    if i >= lim:
-        break
-    print(v[:20], end="\n\n")
-
-
+# lim = 99
+# for i, v in enumerate(all_tables):
+#     if i >= lim:
+#         break
+#     print(v[:20], end="\n\n")

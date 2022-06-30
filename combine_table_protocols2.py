@@ -16,6 +16,7 @@ pd.set_option("display.max_rows", 999)
 
 
 def combine_applicants_tables():
+    save_log("combine_applicants_tables")
     # get all files
     file_names = search_aws_bucket_files("Applicants")
     list_of_tables = []
@@ -34,6 +35,7 @@ def combine_applicants_tables():
 
 
 def combine_json():
+    save_log("combine_json")
     try:
         df_c2 = load_file("json_download")
     except FileNotFoundError:
