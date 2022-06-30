@@ -4,6 +4,8 @@ from cross_table_utility_functions import *
 from clean_applicants_table import *
 from academy_table import *
 from cohort_table import *
+from course_info_table import *
+
 
 """
 This file contains functions that actually clean the date
@@ -85,11 +87,27 @@ def clean_cohort(force_refresh):
         print("Writing new file...\ndf_cohort")
         df_c3 = main2()
         save_file(df_c3, "df_cohort")
-    # cleaning
-    df_c3 = split_name_into_2(df_c3, "Name")
     # clean dates
     df_c3 = apply_to_each_row_in_column(df_c3, "date_on_file", date_dash_removal)
+    # split name
+    df_c3 = split_name_into_2(df_c3, "Name")
+    # add applicant ID
+    df_c3 = json_add_applicant_id(df_c3, col_name="date_on_file")
+    # clean dates
+    df_c3 = apply_to_each_row_in_column(df_c3, "date_on_file", date_dash_removal)
+    # remove extra column
+    df_c3 = df_c3.drop(columns=["date_on_file", "first_name", "last_names"])
+    # remove underscroll
+    df_c3 = apply_to_each_row_in_column(df_c3, "cohort_id", remove_underscore)
     return df_c3
+
+
+def clean_course_info():
+    df_c3 = the_actual_course_info_table()
+    # change format of ID
+    df_c3 = df_c3 = apply_to_each_row_in_column(df_c3, "cohort_id", remove_underscore)
+    return df_c3
+
 
 
 # print(clean_applicants()[:10])

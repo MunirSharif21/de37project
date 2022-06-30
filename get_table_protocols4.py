@@ -2,6 +2,7 @@ from cleaning_table_protocols3 import *
 from normalisation_functions import *
 
 
+
 """
 This file takes a clean table and hence applies normalisation
 to it
@@ -103,7 +104,8 @@ def get_tables_4(force_refresh=False):
     # print(df_academy)
     # df_academy, df_behaviours = normalise(df_academy, ["behaviour"], deletion=False,
     #                                       new_id=True, index="behaviour")
-    return df_academy, df_cohort
+    df_course_info = clean_course_info()
+    return df_academy, df_cohort, df_course_info
 
 # MAIN
 
