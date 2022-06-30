@@ -10,6 +10,7 @@ to it
 
 
 def applicants_address():
+    save_log("applicants_address")
     df_app0 = clean_applicants()
     # extract address into a new table and attach applicant id to it
     df_app0, df_add0 = normalise(df_app0, ["city", "address", "postcode"],
@@ -18,6 +19,7 @@ def applicants_address():
 
 
 def applicants_recruiter(df_app0):
+    save_log("applicants_recruiter")
     # extract recruiters into a new normalised table
     df_app0, df_rec0 = normalise(df_app0, ["invited_by"], deletion=False,
                                  new_id=True, index="invited_by")
@@ -25,6 +27,7 @@ def applicants_recruiter(df_app0):
 
 
 def candidates_scores_strengths(df_cand0):
+    save_log("candidates_scores_strengths")
     df_cand0, df_scores0 = normalise(df_cand0, ["tech_self_score"], deletion=True,
                                      old_id=True, index="applicant_id")
     df_cand0, df_stren0 = normalise(df_cand0, ["strengths"], deletion=True,
@@ -67,6 +70,7 @@ def candidates_scores_strengths(df_cand0):
 
 
 def candidates_location(df_cand0):
+    save_log("candidates_location")
     # print(df_cand0[:10])
     df_cand0, df_locations = normalise(df_cand0, ["Location"], deletion=False,
                                        new_id=True, index="Location")
@@ -74,6 +78,7 @@ def candidates_location(df_cand0):
 
 
 def get_tables_1():
+    save_log("get_tables_1")
     df_app, df_add = applicants_address()
     df_app, df_rec = applicants_recruiter(df_app)
     df_app = delete_column(df_app, "month")
@@ -85,6 +90,7 @@ def get_tables_1():
 
 
 def get_tables_2():
+    save_log("get_tables_2")
     df_json = clean_json()
     df_json, df_scores, df_stren, df_weak, df_lang, df_stren_names, df_weak_names = candidates_scores_strengths(df_json)
     df_stren = df_stren.rename(columns={"strengths": "strength_id"})
@@ -93,6 +99,7 @@ def get_tables_2():
 
 
 def get_tables_3():
+    save_log("get_tables_3")
     df_candidates = clean_candidates()
     df_candidates, df_locations = candidates_location(df_candidates)
     # print(df_locations)
@@ -101,6 +108,7 @@ def get_tables_3():
 
 
 def get_tables_4(force_refresh=False):
+    save_log("get_tables_4")
     df_academy = clean_academy(force_refresh)
     df_academy = df_academy.drop(columns=["first_name", "last_names", "date_on_file"])
     df_cohort = clean_cohort(force_refresh)

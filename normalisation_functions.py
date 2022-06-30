@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from clean_functions import apply_to_each_row_in_column
+from utility_functions import save_log
 
 """
 This file contains functions for normalisation
@@ -19,6 +20,10 @@ def normalise(df, col_names, index=None, deletion=False, old_id=False, new_id=Fa
     :param new_id: Should a new ID be made?,
     :return: Original table and the new table
     """
+    save_log("normalise")
+    # saveLog(f"parameters=\ndf: {df[:5]} col_name: {col_names} index: {index} deletion: "
+    #         f"{deletion}, old_id: {old_id}, new_id: {new_id}")
+
     new_df = df[col_names]
 
     if old_id:
@@ -31,10 +36,12 @@ def normalise(df, col_names, index=None, deletion=False, old_id=False, new_id=Fa
     if deletion:
         df = df.drop(columns=col_names)
 
+    # saveLog(f"return=\ndf: {df[:5]}\nnew_df: {new_df[:5]}")
     return df, new_df
 
 
 def generate_new_ids(df, column_name):
+    save_log("generate_new_ids")
     unique_values = {}
 
     # find all the unique values, hence convert into dataframe
@@ -62,8 +69,8 @@ def generate_new_ids(df, column_name):
     return df_set, key_mapping
 
 
-# NOT FINISHED
 def split_up_column(df, col_name, new_col_name, not_list=True, single_index=False):
+    save_log("split_up_column")
     # print(df[:10])
     df = df.fillna(value=np.nan)
     temp_col = df[col_name]

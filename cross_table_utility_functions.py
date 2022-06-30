@@ -9,6 +9,7 @@ This file matches the applicant ID from the applicants table to other files
 
 
 def generate_name_date_id_map():
+    save_log("generate_name_date_id_map")
     df = clean_applicants_table()
     name_date_id = {}
     map2 = {}
@@ -31,6 +32,7 @@ def generate_name_date_id_map():
 
 
 def json_add_applicant_id(df0, col_name="date", custom_date_format="%Y/%m/%d"):
+    save_log("json_add_applicant_id")
     id_list = []
     mapping, mapping2 = generate_name_date_id_map()
     # print(mapping)
@@ -53,6 +55,7 @@ def json_add_applicant_id(df0, col_name="date", custom_date_format="%Y/%m/%d"):
 
 
 def txt_add_applicant_id(df0, col_name="Date", name_col_name="Name"):
+    save_log("txt_add_applicant_id")
     id_list = []
     mapping, map2 = generate_name_date_id_map()
     # print(df0)

@@ -1,6 +1,7 @@
 import pandas as pd
 from aws_protocols1 import *
 from cohort_table import *
+from utility_functions import save_log
 
 
 # files = search_aws_bucket_files("Academy/")
@@ -8,6 +9,7 @@ from cohort_table import *
 
 
 def create_course_info(file_list):
+    save_log("create_course_info")
     ids = []
     streams = []
     for file_name in file_list:
@@ -36,6 +38,7 @@ def create_course_info(file_list):
 
 
 def the_actual_course_info_table():
+    save_log("the_actual_course_info_table")
     files = search_aws_bucket_files("Academy/")
     return create_course_info(files)
 
