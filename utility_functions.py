@@ -44,11 +44,16 @@ def give_applicants_unique_id(df, aws_file_name):
 
     # set the new index into the new format with 2-digit year,
     # 2-digit month, followed by 4-digit row index
+    exists = {}
     for i in range(df["applicant_id"].size):
         old_id = df.iloc[i, df.columns.get_loc("applicant_id")]
         new_id = (y % 1000) * 1000000
         new_id += m * 10000
         new_id += old_id
+        if new_id in exists:
+            new_id += 8000
+        else:
+            exists[new_id] = 1
         df.iloc[i, df.columns.get_loc("applicant_id")] = new_id
     return df
 
@@ -90,17 +95,19 @@ def save_excel(file, filename):
 
 
 def save_log(text):
-    try:
-        logger = logging.getLogger(__name__)
-        logger.debug(text)
-        # f = open("logs/logs.txt", "a")
-        # time_stamp = datetime.now()
-        # now = str(time_stamp.strftime("%d/%m/%Y %H:%M:%S:%f"))
-        # now = now[:-2]
-        # f.write("\n[" + now + "] " + text)
-        # f.close()
-    except FileNotFoundError:
-        print("No log file found")
+    no_logs = True
+    if not no_logs:
+        try:
+            logger = logging.getLogger(__name__)
+            logger.debug(text)
+            # f = open("logs/logs.txt", "a")
+            # time_stamp = datetime.now()
+            # now = str(time_stamp.strftime("%d/%m/%Y %H:%M:%S:%f"))
+            # now = now[:-2]
+            # f.write("\n[" + now + "] " + text)
+            # f.close()
+        except FileNotFoundError:
+            print("No log file found")
 
 
 def reset_log():

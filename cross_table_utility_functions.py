@@ -1,3 +1,5 @@
+import copy
+
 from clean_functions import *
 from utility_functions import *
 # from cleaning_table_protocols3 import clean_applicants
@@ -25,10 +27,24 @@ def generate_name_date_id_map():
         d_name = df.iloc[row, df.columns.get_loc("month")]
         key = str(f_name) + str(l_name) + str(d_name)
         app_id = df.iloc[row, df.columns.get_loc("applicant_id")]
+        # if key in name_date_id:
+        #     name_date_id[key].append(app_id)
+        # else:
+        #     name_date_id[key] = [app_id]
         name_date_id[key] = app_id
+        # print(name_date_id)
         map2[str(f_name) + str(l_name)] = app_id
 
     return name_date_id, map2
+
+
+def get_key_and_remove(mapping, key):
+    temp = mapping[key]
+    new_map = copy.deepcopy(mapping)
+    if len(new_map[key]) > 1:
+        new_map[key] = temp[1:] + [temp[0]]
+    print(temp, temp[1:])
+    return temp, new_map
 
 
 def json_add_applicant_id(df0, col_name="date", custom_date_format="%Y/%m/%d"):
@@ -47,9 +63,15 @@ def json_add_applicant_id(df0, col_name="date", custom_date_format="%Y/%m/%d"):
         key = str(f_name).lower() + str(l_name).lower() + str(new_date)
         try:
             id_value = mapping[key]
+            # id_value, mapping = get_key_and_remove(mapping, key)
+            # print(key)
         except KeyError:
             id_value = mapping2[str(f_name).lower() + str(l_name).lower()]
-        id_list.append(id_value)
+        try:
+            id_list.append(id_value)
+        except IndexError:
+            print("Error in appending applicant ID")
+            id_list.append(id_value)
     df0.insert(0, "applicant_id", id_list)
     return df0
 
