@@ -1,5 +1,5 @@
 from combine_table_protocols2 import *
-from elios_file import *
+from json_txt_cleaning import *
 from cross_table_utility_functions import *
 from clean_applicants_table import *
 from academy_table import *
