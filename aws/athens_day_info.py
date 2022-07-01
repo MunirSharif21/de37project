@@ -1,11 +1,15 @@
 import boto3
 from datetime import datetime
 import pandas as pd
-
+import glob
+import os
+from unittest import TestCase
 
 s3_client = boto3.client('s3')
 s3_resource = boto3.resource('s3')
 bucket_name = 'data-eng-37-final-project'
+flat_file_name = 'clean-data'
+file_path = 'C:/Users/abhir/GitRepos/de37project/de37project/aws/*.csv'
 
 pd.set_option('display.max_columns', 15)
 pd.set_option('display.width', 400)
@@ -40,6 +44,8 @@ def text_change(df0):
     return temp_list
 
 def athens_day_info_normalisation():  # gets the keys as a list of strings for all .csv files in the Talent/ folder
+    global s3_upload
+
     keys = [o.key for o in s3_resource.Bucket(bucket_name).objects.all()]
 
     filtered_keys = []
@@ -74,9 +80,14 @@ def athens_day_info_normalisation():  # gets the keys as a list of strings for a
 
     csv_new = df_new.to_csv('athens_day_info.csv')
 
-    return csv_new
+    file_name = (glob.glob(file_path))
 
+    for x in file_name:
+        fn = os.path.basename(x)
+        s3_upload = s3_client.upload_file(x, bucket_name, flat_file_name+'/'+fn) #
+    return s3_upload
+
+    # return csv_new
 
 print(athens_day_info_normalisation())
-
 
