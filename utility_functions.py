@@ -2,6 +2,9 @@ import re
 from datetime import datetime
 import pickle
 import os
+import logging
+import logging.config
+from os import path
 
 
 """
@@ -88,18 +91,24 @@ def save_excel(file, filename):
 
 def save_log(text):
     try:
-        f = open("logs/logs.txt", "a")
-        time_stamp = datetime.now()
-        now = str(time_stamp.strftime("%d/%m/%Y %H:%M:%S:%f"))
-        now = now[:-2]
-        f.write("\n[" + now + "] " + text)
-        f.close()
+        logger = logging.getLogger(__name__)
+        logger.debug(text)
+        # f = open("logs/logs.txt", "a")
+        # time_stamp = datetime.now()
+        # now = str(time_stamp.strftime("%d/%m/%Y %H:%M:%S:%f"))
+        # now = now[:-2]
+        # f.write("\n[" + now + "] " + text)
+        # f.close()
     except FileNotFoundError:
         print("No log file found")
 
 
 def reset_log():
-    with open("logs/logs.txt", "w") as myfile:
-        myfile.write(" ")
+    log_file_path = path.join(path.dirname(path.abspath(__file__)), 'logs/log_config.txt')
+    logging.config.fileConfig(log_file_path)
+    # logging.config.fileConfig(fname="logs/log_config.txt", disable_existing_loggers=False)
+    # Get the logger specified in the file
+
+
 
 

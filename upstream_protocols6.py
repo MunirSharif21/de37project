@@ -9,7 +9,7 @@ from main_protocols5 import *
 my_uid = "admin"
 my_pwd = "spartaglobal"
 my_host = "database-1.calyepmxm6dy.eu-central-1.rds.amazonaws.com"
-my_db = "athens"
+my_db = "upstream_test"
 my_schema = "final_project_sql_tables.txt"
 my_odbc_driver = "ODBC Driver 17 for SQL Server"
 
@@ -30,11 +30,11 @@ dir_list = os.listdir(csv_location)
 
 
 def add_tables_to_sql(tables_list):
-    # table_names = ["applicant", "address", "recruiter", "athens_day", "scores",
-    #                "strength", "weakness", "language_name", "strength_name",
-    #                "weakness_name", "candidates", "academy",
-    #                "cohort", "cohort_info"]
-    table_names = ["strength_name"]
+    table_names = ["applicant", "address", "recruiter", "athens_day", "scores",
+                   "strength", "weakness", "language_name", "strength_name",
+                   "weakness_name", "candidates", "academy",
+                   "cohort", "cohort_info"]
+    # table_names = ["strength_name"]
     for i, v in tqdm(enumerate(table_names)):
         table = tables_list[i]
         table.to_sql(v, engine, if_exists="replace", index=False)
@@ -60,6 +60,6 @@ else:
         tables = get_all_tables_list()
         save_file(tables, "tables_list")
 # print(tables[0][:10])
-# add_tables_to_sql(tables)
+add_tables_to_sql(tables)
 
 

@@ -77,6 +77,29 @@ def txt_add_applicant_id(df0, col_name="Date", name_col_name="Name"):
     return df0
 
 
+# def fix_duplicate_id(df0):
+#     save_log("fix_duplicate_id")
+#     id_list = []
+#     mapping, map2 = generate_name_date_id_map()
+#     # print(df0)
+#     for row in range(df0[name_col_name].size):
+#         name = df0.iloc[row, df0.columns.get_loc(name_col_name)].lower()
+#         name = name.replace(" ", "")
+#         n_date = str(df0.iloc[row, df0.columns.get_loc(col_name)])
+#         n_date = n_date[:7]
+#
+#         temp_date = datetime.strptime(n_date, "%Y/%m")
+#         new_date = temp_date.strftime("%m/%Y")
+#         key = name + str(new_date)
+#         # print(key, mapping[key])
+#         try:
+#             id_list.append(mapping[key])
+#         except KeyError:
+#             id_list.append(map2[key])
+#     df0.insert(0, "applicant_id", id_list)
+#     return df0
+#
+
 def fix_double_date(df):
     print(df)
 

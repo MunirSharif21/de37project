@@ -30,10 +30,10 @@ def save_to_csv():
     df_lang.to_csv("clean_csv/languages_table.csv")
     df_candidates.to_csv("clean_csv/assessment_day_table.csv")
     df_locations.to_csv("clean_csv/location_table.csv")
-    df_stren_names.to_csv("clean_csv/strength_names.csv")
-    df_stren.to_csv("clean_csv/strengths.csv")
-    df_weak.to_csv("clean_csv/weaknesses.csv")
-    df_weak_names.to_csv("clean_csv/weak_names.csv")
+    df_stren_names.to_csv("clean_csv/strengths.csv")
+    df_stren.to_csv("clean_csv/applicant_strengths.csv")
+    df_weak.to_csv("clean_csv/applicant_weaknesses.csv")
+    df_weak_names.to_csv("clean_csv/weaknesses.csv")
     df_academy.to_csv("clean_csv/academy.csv")
     df_cohort.to_csv("clean_csv/cohort.csv")
     df_cohort_info.to_csv("clean_csv/course_info.csv")
@@ -42,7 +42,8 @@ def save_to_csv():
 reset_log()
 
 
-save_to_csv()
+# save_to_csv()
+
 
 # print(pd.read_pickle("tables_pickle_file")[:20])
 
@@ -60,9 +61,14 @@ def get_all_tables_list():
     return all_tables
 
 
-# all_tables = []
-# for i in tqdm(get_tables_1()):
-#     all_tables.append(i)
+all_tables = []
+
+for i in tqdm(get_tables_1()):
+    all_tables.append(i)
+# for j in all_tables:
+#     save_excel(j, str(j))
+save_excel(all_tables[0], "test11")
+
 # for i in tqdm(get_tables_2()):
 #     all_tables.append(i)
 # for i in tqdm(get_tables_3()):
